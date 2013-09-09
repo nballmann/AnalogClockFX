@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.nic.clock.controller.ClockController">
+  <!-- TODO Add Nodes -->
+</StackPane>
