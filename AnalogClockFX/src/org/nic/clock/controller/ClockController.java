@@ -44,14 +44,20 @@ public class ClockController {
 		minutesHand = new ClockHand(ClockHand.MINUTE_HAND);
 		secondsHand = new ClockHand(ClockHand.SECOND_HAND);
 		
+		hoursHand.mouseTransparentProperty().set(true);
+		minutesHand.mouseTransparentProperty().set(true);
+		secondsHand.mouseTransparentProperty().set(true);
+		
 		hours.addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> obs,
 					Number oldValue, Number newValue) {
 
-				hoursHand.rotateProperty().set((Double)newValue * 360/12-(3*360/12)+(Double)(minutes.get()/60));
-				System.out.println("changed");
+				hoursHand.rotateProperty().set(newValue.doubleValue() * 
+						360f/12f-(3f*360f/12f)+360f/12f*minutes.get()/60f);
+				System.out.println("changed Hour " + (newValue.doubleValue() * 
+						360.00/12.00-(3.00*360.00/12.00)+360f/12f*minutes.get()/60f));
 				
 			}
 			
@@ -63,8 +69,12 @@ public class ClockController {
 			public void changed(ObservableValue<? extends Number> obs,
 					Number oldValue, Number newValue) {
 
-				minutesHand.rotateProperty().set((Double)newValue * (360/60)-(15*360/60));
-				System.out.println("changed");
+				double temp = newValue.doubleValue() * (360/60)-(15*360/60);
+				minutesHand.rotateProperty().set(temp);
+				
+				if(temp%6==0 && temp!=0 && temp!=60)
+					hours.set(hours.get() + newValue.doubleValue()*60/100);
+				System.out.println("changed Minute");
 				
 			}
 			
@@ -76,57 +86,23 @@ public class ClockController {
 			public void changed(ObservableValue<? extends Number> obs,
 					Number oldValue, Number newValue) {
 
-				secondsHand.rotateProperty().set((Double) newValue * (360/60)-(15*360/60));
-				System.out.println("changed");
+				if(oldValue!=newValue) {
+					secondsHand.rotateProperty().set((Double) newValue * 
+							(360/60)-(15*360/60));
+					System.out.println("changed Second");
+				}
 			}
 			
 		});
 		
+		seconds.set(11);
+		minutes.set(12);
+		hours.set(13);
+		
 		isRunning = true;
 		
-//		ClockService service = new ClockService();
-//		service.start();
-//		
-		
-		System.out.println(cal.get().get(Calendar.MILLISECOND));
-		
-		try {
-			Thread.sleep(400);
-			seconds.set(11);
-			minutes.set(34);
-			hours.set(9);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(cal.get().get(Calendar.MILLISECOND));
-		
-		Task<Integer> task = new Task<Integer>() {
-
-			@Override
-			protected Integer call() throws Exception {
-
-				while(isRunning) {
-					
-					cal.set(Calendar.getInstance());
-					
-					Thread.sleep(1000);
-					
-					hours.set(cal.get().get(Calendar.HOUR));
-					minutes.set(cal.get().get(Calendar.MINUTE));
-					seconds.set(cal.get().get(Calendar.SECOND));
-					
-					System.out.println(cal.get().get(Calendar.SECOND));
-					
-				}
-				
-				return null;
-			}
-			
-		};
-		
-		new Thread(task).start();
-		
+		ClockService service = new ClockService();
+		service.start();
 		
 	}
 	
@@ -138,7 +114,7 @@ public class ClockController {
 		this.clockApp = clockApp;
 	}
 	
-	public void setRunningStatus() {
+	public void changeRunningStatus() {
 		isRunning = !isRunning;
 	}
 	
@@ -154,13 +130,13 @@ public class ClockController {
 
 					while(isRunning) {
 						
-						wait(1000);
+						cal.set(Calendar.getInstance());
+						
+						Thread.sleep(1000);
 						
 						hours.set(cal.get().get(Calendar.HOUR));
 						minutes.set(cal.get().get(Calendar.MINUTE));
 						seconds.set(cal.get().get(Calendar.SECOND));
-						
-						System.out.println(cal.get().get(Calendar.SECOND));
 						
 					}
 					
