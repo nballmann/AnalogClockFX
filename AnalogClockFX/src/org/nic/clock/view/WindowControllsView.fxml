@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="100.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.nic.clock.controller.WindowControllsController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <StackPane prefHeight="30.0" prefWidth="30.0">
+      <children>
+        <Rectangle arcHeight="10.0" arcWidth="10.0" height="30.0" onMouseClicked="#handleWindowMinimize" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0">
+          <effect>
+            <Lighting specularExponent="5.0" surfaceScale="2.0">
+              <bumpInput>
+                <Shadow />
+              </bumpInput>
+              <light>
+                <javafx.scene.effect.Light.Spot pointsAtZ="-100.0" x="100.0" y="100.0" z="100.0" />
+              </light>
+            </Lighting>
+          </effect>
+          <fill>
+            <Color blue="0.250" green="0.250" red="0.250" fx:id="x1" />
+          </fill>
+        </Rectangle>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="6.0" stroke="TRANSPARENT" strokeType="INSIDE" translateY="5.0" width="16.0">
+          <effect>
+            <Glow />
+          </effect>
+        </Rectangle>
+      </children>
+    </StackPane>
+    <StackPane prefHeight="30.0" prefWidth="30.0">
+      <children>
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="$x1" height="30.0" onMouseClicked="#handleWindowMaximize" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0">
+          <effect>
+            <Lighting specularExponent="5.0" surfaceScale="2.0">
+              <bumpInput>
+                <Shadow />
+              </bumpInput>
+              <light>
+                <javafx.scene.effect.Light.Distant />
+              </light>
+            </Lighting>
+          </effect>
+        </Rectangle>
+        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="17.0">
+          <effect>
+            <Glow />
+          </effect>
+        </Rectangle>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="10.0" />
+      </children>
+    </StackPane>
+    <StackPane prefHeight="30.0" prefWidth="30.0">
+      <children>
+        <Rectangle arcHeight="10.0" arcWidth="10.0" fill="$x1" height="30.0" onMouseClicked="#handleWindowClose" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0">
+          <effect>
+            <Lighting specularExponent="5.0" surfaceScale="2.0">
+              <bumpInput>
+                <Shadow />
+              </bumpInput>
+              <light>
+                <javafx.scene.effect.Light.Distant />
+              </light>
+            </Lighting>
+          </effect>
+        </Rectangle>
+        <Text boundsType="LOGICAL" fill="WHITE" fontSmoothingType="GRAY" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" textOrigin="CENTER" translateX="0.0" translateY="-1.0" StackPane.alignment="CENTER">
+          <effect>
+            <Glow level="0.2" />
+          </effect>
+          <font>
+            <Font name="System Bold" size="22.0" />
+          </font>
+        </Text>
+      </children>
+    </StackPane>
+  </children>
+</HBox>

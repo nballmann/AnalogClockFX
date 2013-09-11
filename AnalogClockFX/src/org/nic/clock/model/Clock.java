@@ -20,7 +20,6 @@ public class Clock  extends Canvas {
 	
 	public Clock() {
 		
-		
 		setHeight(600);
 		setWidth(600);
 		

@@ -14,8 +14,9 @@ import javafx.concurrent.Task;
 
 import org.nic.clock.ClockApp;
 import org.nic.clock.model.ClockHand;
+import org.nic.clock.util.ControllerInterface;
 
-public class ClockController {
+public class ClockController implements ControllerInterface {
 	
 	private ClockApp clockApp;
 	
@@ -55,9 +56,10 @@ public class ClockController {
 					Number oldValue, Number newValue) {
 
 				hoursHand.rotateProperty().set(newValue.doubleValue() * 
-						360f/12f-(3f*360f/12f)+360f/12f*minutes.get()/60f);
+						360f/12f-(3f*360f/12f));//+(360f/60f*minutes.get()*60f/100f));
+				System.out.println(360f/12f*minutes.get()*60f/100f);
 				System.out.println("changed Hour " + (newValue.doubleValue() * 
-						360.00/12.00-(3.00*360.00/12.00)+360f/12f*minutes.get()/60f));
+						360.00/12.00-(3.00*360.00/12.00)+minutes.get()*60/100));
 				
 			}
 			
@@ -72,8 +74,8 @@ public class ClockController {
 				double temp = newValue.doubleValue() * (360/60)-(15*360/60);
 				minutesHand.rotateProperty().set(temp);
 				
-				if(temp%6==0 && temp!=0 && temp!=60)
-					hours.set(hours.get() + newValue.doubleValue()*60/100);
+//				if(temp%6==0 && temp!=0 && temp!=60)
+//					hours.set(hours.get() + newValue.doubleValue()*60/100);
 				System.out.println("changed Minute");
 				
 			}
@@ -89,15 +91,15 @@ public class ClockController {
 				if(oldValue!=newValue) {
 					secondsHand.rotateProperty().set((Double) newValue * 
 							(360/60)-(15*360/60));
-					System.out.println("changed Second");
+
 				}
 			}
 			
 		});
 		
-		seconds.set(11);
-		minutes.set(12);
-		hours.set(13);
+		seconds.set(0);
+		minutes.set(0);
+		hours.set(0);
 		
 		isRunning = true;
 		
@@ -110,6 +112,7 @@ public class ClockController {
 	public ClockHand getMinutesHand() { return minutesHand; }
 	public ClockHand getSecondsHand() { return secondsHand; }
 	
+	@Override
 	public void setMainApp(ClockApp clockApp) {
 		this.clockApp = clockApp;
 	}
@@ -134,7 +137,7 @@ public class ClockController {
 						
 						Thread.sleep(1000);
 						
-						hours.set(cal.get().get(Calendar.HOUR));
+						hours.set(cal.get().get(Calendar.HOUR) + minutes.get()/60f);
 						minutes.set(cal.get().get(Calendar.MINUTE));
 						seconds.set(cal.get().get(Calendar.SECOND));
 						

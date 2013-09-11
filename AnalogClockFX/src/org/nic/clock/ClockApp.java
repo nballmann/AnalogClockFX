@@ -8,12 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import org.nic.clock.controller.ClockController;
+import org.nic.clock.controller.WindowControllsController;
 import org.nic.clock.model.Clock;
 
 public class ClockApp extends Application {
@@ -21,6 +23,7 @@ public class ClockApp extends Application {
 	private double initialX;
 	private double initialY;
 	
+	private HBox windowControlls;
 	
 	@Override
 	public void start(Stage stage) {
@@ -67,16 +70,15 @@ public class ClockApp extends Application {
 				
 			});
 
-			ClockController calendarController = new ClockController();
-
-
-			clockView.getChildren().add(clock);
-			clockView.getChildren().add(calendarController.getHoursHand());
-			clockView.getChildren().add(calendarController.getMinutesHand());
-			clockView.getChildren().add(calendarController.getSecondsHand());
-			
 			ClockController clockController = loader.getController();
 			clockController.setMainApp(this);
+
+			clockView.getChildren().add(clock);
+			clockView.getChildren().add(clockController.getHoursHand());
+			clockView.getChildren().add(clockController.getMinutesHand());
+			clockView.getChildren().add(clockController.getSecondsHand());
+			
+			initWindowControlls();
 			
 			Scene scene = new Scene(clockView);
 			scene.setFill(null);
@@ -85,6 +87,12 @@ public class ClockApp extends Application {
 			stage.setHeight(650);
 			stage.setWidth(650);
 			stage.setTitle("Clock");
+			
+//			windowControlls.setTranslateX(stage.getWidth()/2 - windowControlls.getPrefWidth());
+			windowControlls.setTranslateY(-stage.getHeight()/2 + windowControlls.getPrefHeight());
+			
+			clockView.getChildren().add(windowControlls);
+			
 			
 			
 			
@@ -98,6 +106,26 @@ public class ClockApp extends Application {
 			});
 			
 			stage.show();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	private void initWindowControlls() {
+		
+		try {
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("view/WindowControllsView.fxml"));
+			
+			windowControlls = (HBox) loader.load();
+			
+			WindowControllsController winController = loader.getController();
+			winController.setMainApp(this);
+			
 			
 			
 		} catch (IOException e) {
