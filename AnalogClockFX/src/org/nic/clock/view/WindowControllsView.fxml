@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="100.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.nic.clock.controller.WindowControllsController">
+<HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="100.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.nic.clock.controller.WindowControllsController">
   <!-- TODO Add Nodes -->
   <children>
     <StackPane prefHeight="30.0" prefWidth="30.0">
@@ -28,7 +28,7 @@
             <Color blue="0.250" green="0.250" red="0.250" fx:id="x1" />
           </fill>
         </Rectangle>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="6.0" stroke="TRANSPARENT" strokeType="INSIDE" translateY="5.0" width="16.0">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="4.0" stroke="TRANSPARENT" strokeType="INSIDE" translateY="5.0" width="16.0">
           <effect>
             <Glow />
           </effect>
@@ -49,7 +49,7 @@
             </Lighting>
           </effect>
         </Rectangle>
-        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="17.0" stroke="TRANSPARENT" strokeType="INSIDE" width="17.0">
+        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="15.0" stroke="TRANSPARENT" strokeType="INSIDE" width="15.0">
           <effect>
             <Glow />
           </effect>

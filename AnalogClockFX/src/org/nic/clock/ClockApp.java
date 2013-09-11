@@ -25,10 +25,16 @@ public class ClockApp extends Application {
 	
 	private HBox windowControlls;
 	
+	private Stage stage;
+	
 	@Override
 	public void start(Stage stage) {
 		
+		this.stage = stage;
+		
 		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.setHeight(650);
+		stage.setWidth(650);
 		
 		try {
 			
@@ -36,7 +42,7 @@ public class ClockApp extends Application {
 			
 			StackPane clockView = (StackPane) loader.load();
 			
-			final Clock clock = new Clock();
+			final Clock clock = new Clock(stage.getWidth(), stage.getHeight());
 
 			clock.setOnMousePressed(new EventHandler<MouseEvent>() {
 
@@ -84,8 +90,6 @@ public class ClockApp extends Application {
 			scene.setFill(null);
 			
 			stage.setScene(scene);
-			stage.setHeight(650);
-			stage.setWidth(650);
 			stage.setTitle("Clock");
 			
 //			windowControlls.setTranslateX(stage.getWidth()/2 - windowControlls.getPrefWidth());
@@ -134,6 +138,8 @@ public class ClockApp extends Application {
 		
 		
 	}
+	
+	public Stage getStage() { return stage; }
 
 	public static void main(String[] args) {
 		launch(args);

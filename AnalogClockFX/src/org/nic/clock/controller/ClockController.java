@@ -41,9 +41,18 @@ public class ClockController implements ControllerInterface {
 		minutes = new SimpleDoubleProperty(cal.get().get(Calendar.MINUTE));
 		seconds = new SimpleDoubleProperty(cal.get().get(Calendar.SECOND));
 		
-		hoursHand = new ClockHand(ClockHand.HOUR_HAND);
-		minutesHand = new ClockHand(ClockHand.MINUTE_HAND);
-		secondsHand = new ClockHand(ClockHand.SECOND_HAND);
+		hoursHand = new ClockHand(
+//				clockApp.getStage().getWidth(), 
+//				clockApp.getStage().getHeight(), 
+				ClockHand.HOUR_HAND);
+		minutesHand = new ClockHand(
+//				clockApp.getStage().getWidth(), 
+//				clockApp.getStage().getHeight(), 
+				ClockHand.MINUTE_HAND);
+		secondsHand = new ClockHand(
+//				clockApp.getStage().getWidth(), 
+//				clockApp.getStage().getHeight(), 
+				ClockHand.SECOND_HAND);
 		
 		hoursHand.mouseTransparentProperty().set(true);
 		minutesHand.mouseTransparentProperty().set(true);
@@ -57,7 +66,6 @@ public class ClockController implements ControllerInterface {
 
 				hoursHand.rotateProperty().set(newValue.doubleValue() * 
 						360f/12f-(3f*360f/12f));//+(360f/60f*minutes.get()*60f/100f));
-				System.out.println(360f/12f*minutes.get()*60f/100f);
 				System.out.println("changed Hour " + (newValue.doubleValue() * 
 						360.00/12.00-(3.00*360.00/12.00)+minutes.get()*60/100));
 				
@@ -89,7 +97,7 @@ public class ClockController implements ControllerInterface {
 					Number oldValue, Number newValue) {
 
 				if(oldValue!=newValue) {
-					secondsHand.rotateProperty().set((Double) newValue * 
+					secondsHand.rotateProperty().set(newValue.doubleValue() * 
 							(360/60)-(15*360/60));
 
 				}
