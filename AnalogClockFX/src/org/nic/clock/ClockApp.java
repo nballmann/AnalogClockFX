@@ -20,8 +20,8 @@ import org.nic.clock.model.Clock;
 
 public class ClockApp extends Application {
 
-	private double initialX;
-	private double initialY;
+	private static final int APP_WIDTH = 300;
+	private static final int APP_HEIGHT = 300;
 	
 	private HBox windowControlls;
 	
@@ -33,8 +33,8 @@ public class ClockApp extends Application {
 		this.stage = stage;
 		
 		stage.initStyle(StageStyle.TRANSPARENT);
-		stage.setHeight(650);
-		stage.setWidth(650);
+		stage.setHeight(APP_HEIGHT);
+		stage.setWidth(APP_WIDTH);
 		
 		try {
 			
@@ -42,44 +42,11 @@ public class ClockApp extends Application {
 			
 			StackPane clockView = (StackPane) loader.load();
 			
-			final Clock clock = new Clock(stage.getWidth(), stage.getHeight());
-
-			clock.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-
-					if(event.getButton() == MouseButton.PRIMARY) {
-						
-						initialX = event.getSceneX();
-						initialY = event.getSceneY();
-						
-					}
-					
-				}
-				
-			});
-			
-			clock.setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-
-					if(event.getButton() == MouseButton.PRIMARY) {
-						
-						clock.getScene().getWindow().setX(event.getScreenX() - initialX);
-						clock.getScene().getWindow().setY(event.getScreenY() - initialY);
-						
-					}
-					
-				}
-				
-			});
-
 			ClockController clockController = loader.getController();
 			clockController.setMainApp(this);
+			clockController.init();
 
-			clockView.getChildren().add(clock);
+			clockView.getChildren().add(clockController.getClock());
 			clockView.getChildren().add(clockController.getHoursHand());
 			clockView.getChildren().add(clockController.getMinutesHand());
 			clockView.getChildren().add(clockController.getSecondsHand());
@@ -92,7 +59,6 @@ public class ClockApp extends Application {
 			stage.setScene(scene);
 			stage.setTitle("Clock");
 			
-//			windowControlls.setTranslateX(stage.getWidth()/2 - windowControlls.getPrefWidth());
 			windowControlls.setTranslateY(-stage.getHeight()/2 + windowControlls.getPrefHeight());
 			
 			clockView.getChildren().add(windowControlls);

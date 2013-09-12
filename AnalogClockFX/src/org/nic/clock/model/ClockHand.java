@@ -27,10 +27,10 @@ public class ClockHand extends Canvas {
 	public void setActualTick(int tick) { this.actualTick.set(tick); }
 	
 	
-	public ClockHand(final int handType) {
+	public ClockHand(final double width, final double height, final int handType) {
 		
-		setWidth(600);
-		setHeight(600);
+		setWidth(width);
+		setHeight(height);
 		
 		tickCount = new SimpleIntegerProperty(60);
 		actualTick = new SimpleIntegerProperty(0);

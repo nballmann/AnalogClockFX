@@ -18,7 +18,7 @@ public class Clock  extends Canvas {
 	
 	private GraphicsContext gc;
 	
-	public Clock(final double width, final double height) {
+	public Clock(final double width, final double height, final String cityLabel) {
 		
 		setHeight(width);
 		setWidth(height);
@@ -63,8 +63,17 @@ public class Clock  extends Canvas {
 			gc.rotate(-90);
 			gc.translate(-getHeight()*0.35, 0);
 			
-			gc.rotate(-(i * (360/12)));
+			if(i==5) {
+				
+				gc.translate(getHeight()*0.20, 0);
+				gc.rotate(270);
+				gc.fillText(cityLabel, 0, 0);
+				gc.rotate(-270);
+				gc.translate(-getHeight()*0.20, 0);
+				
+			}
 			
+			gc.rotate(-(i * (360/12)));
 			
 		}
 		
