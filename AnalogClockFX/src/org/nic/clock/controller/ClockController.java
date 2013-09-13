@@ -25,7 +25,7 @@ import org.nic.clock.model.ClockHand;
 import org.nic.clock.util.ControllerInterface;
 import org.nic.clock.util.TimeZoneUtil;
 
-public class ClockController implements ControllerInterface{
+public class ClockController implements ControllerInterface {
 	
 	private ClockApp clockApp;
 	
@@ -47,6 +47,7 @@ public class ClockController implements ControllerInterface{
 	
 	private TimeZone timezone;
 	private String timeZoneLabel = "Lokal";
+	private String currentCity = "Kampala";
 	
 	private HashMap<String, CityTime> cityMap;
 	
@@ -67,9 +68,6 @@ public class ClockController implements ControllerInterface{
 					
 				}
 				
-//				System.out.println(cityMap.get("Kotor"));
-				
-	
 				return null;
 			}
 			
@@ -93,7 +91,7 @@ public class ClockController implements ControllerInterface{
 		ClockService service = new ClockService();
 		service.start();
 		
-		setTimeZoneByCity("Spijkenisse");
+		setTimeZoneByCity(currentCity);
 	}
 	
 	public Clock getClock()	{ return clock; }
@@ -155,7 +153,6 @@ public class ClockController implements ControllerInterface{
 				clockApp.getStage().getHeight(), 
 				ClockHand.SECOND_HAND);
 		
-
 		hoursHand.mouseTransparentProperty().set(true);
 		minutesHand.mouseTransparentProperty().set(true);
 		secondsHand.mouseTransparentProperty().set(true);
@@ -216,8 +213,6 @@ public class ClockController implements ControllerInterface{
 	public synchronized void setTimeZoneByCity(final String city) {
 
 		if(cityMap.containsKey(city)) {
-			
-			System.out.println(city  + " exists");
 
 			timezone = TimeZone.getTimeZone(cityMap.get(city).getTimezone());
 			
@@ -226,6 +221,8 @@ public class ClockController implements ControllerInterface{
 			cal.set(Calendar.getInstance(timezone));
 
 		}
+		
+		// TODO handle notContained
 		
 	}
 	
@@ -241,7 +238,10 @@ public class ClockController implements ControllerInterface{
 
 					while(isRunning) {
 						
-						cal.set(Calendar.getInstance(timezone));
+						cal.set(Calendar.getInstance(timezone, Locale.GERMANY));
+						
+						if(TimeZone.getDefault().inDaylightTime(cal.get().getTime()))
+							cal.get().add(Calendar.HOUR, 1);
 						
 						Thread.sleep(1000);
 						

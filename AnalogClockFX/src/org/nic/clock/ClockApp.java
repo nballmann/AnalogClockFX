@@ -6,8 +6,6 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -16,7 +14,6 @@ import javafx.stage.WindowEvent;
 
 import org.nic.clock.controller.ClockController;
 import org.nic.clock.controller.WindowControllsController;
-import org.nic.clock.model.Clock;
 
 public class ClockApp extends Application {
 
@@ -63,9 +60,6 @@ public class ClockApp extends Application {
 			
 			clockView.getChildren().add(windowControlls);
 			
-			
-			
-			
 			stage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>() {
 
 				@Override
@@ -82,7 +76,6 @@ public class ClockApp extends Application {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
 	private void initWindowControlls() {
@@ -96,12 +89,9 @@ public class ClockApp extends Application {
 			WindowControllsController winController = loader.getController();
 			winController.setMainApp(this);
 			
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	
